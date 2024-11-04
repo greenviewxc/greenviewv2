@@ -1,20 +1,48 @@
+<<<<<<< Updated upstream
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@services/firebase'; // Import Firebase config
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import ProgressBar from './ProgressBar'; // Ensure ProgressBar component is imported
 import './Score.css'; // Assuming custom styles
+=======
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db, model } from "@services/firebase";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import ProgressBar from "./ProgressBar";
+import { useNavigate } from "react-router-dom";
+import "./Consolidated.css";
+>>>>>>> Stashed changes
 
 interface ScoreProps {
   score: number;
   totalQuestions: number;
 }
 
+<<<<<<< Updated upstream
 const Score: React.FC<ScoreProps> = ({ score, totalQuestions }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [previousScore, setPreviousScore] = useState<number | null>(null);
   const [message, setMessage] = useState<string>('Great start! This is your first time taking the quiz.');
   const [user] = useAuthState(auth); // Firebase authentication hook
+=======
+const Score: React.FC<ScoreProps> = ({
+  score,
+  totalQuestions,
+  answers,
+  questions,
+}) => {
+  const [previousScore, setPreviousScore] = useState<number | null>(null);
+  const [message, setMessage] = useState<string>(
+    "Great start! This is your first time taking the quiz."
+  );
+  const [aiResponse, setAiResponse] = useState<string>("");
+  const [potentialQuestions, setPotentialQuestions] = useState<string[]>([]);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
 
   const maxScore = totalQuestions * 10; // Calculate max score
   const percentageScore = (score / maxScore) * 100; // Calculate percentage for progress bar
@@ -41,12 +69,26 @@ const Score: React.FC<ScoreProps> = ({ score, totalQuestions }) => {
           await updateDoc(userDocRef, {
             score: score,
             lastUpdated: new Date(),
+<<<<<<< Updated upstream
+=======
+            answers: answers.map(
+              (answerIndex, i) => questions[i].answers[answerIndex]
+            ),
+            questions: questions.map((q) => q.question),
+>>>>>>> Stashed changes
           });
         } else {
           await setDoc(userDocRef, {
             userId: user.uid,
             score: score,
             lastUpdated: new Date(),
+<<<<<<< Updated upstream
+=======
+            answers: answers.map(
+              (answerIndex, i) => questions[i].answers[answerIndex]
+            ),
+            questions: questions.map((q) => q.question),
+>>>>>>> Stashed changes
           });
           setMessage('Great start! This is your first time taking the quiz.');
         }
@@ -54,7 +96,78 @@ const Score: React.FC<ScoreProps> = ({ score, totalQuestions }) => {
 
       fetchScore().catch((error) => console.error('Error fetching score:', error));
     }
+<<<<<<< Updated upstream
   }, [user, score]);
+=======
+  }, [user, score, answers, questions]);
+
+  useEffect(() => {
+    const generateAISummary = async () => {
+      try {
+        // Prepare the questions and answers in a structured format
+        const qaPairs = questions.map((q, i) => ({
+          question: q.question,
+          answer: q.answers[answers[i]],
+        }));
+
+        const chat = model.startChat({
+          history: [
+            {
+              role: "user",
+              parts: [
+                {
+                  text: "Generate a sustainability summary and suggestions based on the following quiz questions and answers.",
+                },
+              ],
+            },
+            {
+              role: "model",
+              parts: [{ text: "Please provide the questions and answers." }],
+            },
+            {
+              role: "user",
+              parts: [{ text: JSON.stringify(qaPairs) }],
+            },
+          ],
+          generationConfig: {
+            maxOutputTokens: 500,
+          },
+        });
+
+        const result = await chat.sendMessage(
+          "Please provide a summary and suggestions."
+        );
+        const response = await result.response;
+        const aiResponseText = await response.text();
+
+        setAiResponse(aiResponseText);
+
+        // Generate potential questions
+        const questionResult = await chat.sendMessage(
+          "Please provide the three most practical questions the user might have based on this information."
+        );
+        const questionResponse = await questionResult.response;
+        const potentialQuestionsText = await questionResponse.text();
+
+        // Split the response into lines and skip the first line
+        const potentialQuestions = potentialQuestionsText
+          .split("\n")
+          .slice(1) // Skip the first line
+          .filter((q) => q.trim() !== "");
+
+        setPotentialQuestions(potentialQuestions.slice(0, 3)); // Limit to 3 questions
+      } catch (error) {
+        console.error("Error generating AI summary:", error);
+      }
+    };
+
+    generateAISummary();
+  }, [answers, questions]);
+
+  const handleSendToChatbot = (question: string) => {
+    navigate(`/chat?message=${encodeURIComponent(question)}`);
+  };
+>>>>>>> Stashed changes
 
   return (
     <div className="score-container">
@@ -66,8 +179,31 @@ const Score: React.FC<ScoreProps> = ({ score, totalQuestions }) => {
 
         {/* Score number in the middle */}
         <div className="score-display">
+<<<<<<< Updated upstream
           <span className="score-number">{score}</span> {/* Display the score in the center */}
           <span className="job">{message}</span> {/* Display dynamic message below the score */}
+=======
+          <p className="score-number">{score}</p>
+          <p className="job">{message}</p>
+        </div>
+      </div>
+      <div className="ai-box">
+        <h3>Sustainability Summary</h3>
+        <p style={{ whiteSpace: "pre-wrap", overflowWrap: "break-word" }}>
+          {aiResponse}
+        </p>
+        <h4>Potential Questions</h4>
+        <div className="potential-questions">
+          {potentialQuestions.map((question, index) => (
+            <button
+              key={index}
+              onClick={() => handleSendToChatbot(question)}
+              style={{ marginTop: "10px" }}
+            >
+              {question}
+            </button>
+          ))}
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>

@@ -4,16 +4,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 250, 241, 1); /* Light background color */
 }
 
 .score-box {
-    background-color: rgba(255, 250, 241, 1);
-    border-radius: 8px;
-    padding: 20px;
+    
     width: 800px; /* Fixed width for large screens */
     height: 400px; /* Fixed height for large screens */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     position: relative;
     display: flex;
     flex-direction: column;

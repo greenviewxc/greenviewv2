@@ -3,6 +3,10 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Calendar from "./pages/Calendar";
 import Score from "./pages/Score";
+<<<<<<< Updated upstream
+=======
+import Main from "./pages/Main";
+>>>>>>> Stashed changes
 
 const App = () => {
   return (

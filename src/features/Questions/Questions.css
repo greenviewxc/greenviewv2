@@ -1,5 +1,6 @@
 /* Questions.css */
 
+<<<<<<< Updated upstream
 .questions-container {
     display: flex;
     justify-content: center;
@@ -12,6 +13,8 @@
     background-repeat: no-repeat; /* Prevent the image from repeating */
 }
 
+=======
+>>>>>>> Stashed changes
 .white-box {
     background-color: rgba(255, 250, 241, 1); /* Same background color as score box */
     border-radius: 8px;

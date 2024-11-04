@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Glacial+Indifference:wght@400;700&display=swap');
+
+/* Score and Questions common styles */
+.questions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f4e1;
+    background-image: url('/public/questions_background.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.white-box, .ai-box {
+    background-color: rgba(255, 250, 241, 1);
+    border-radius: 8px;
+    padding: 20px;
+    width: 800px;
+    height: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    z-index: 10; /* Ensure it stays in front of animations */
+}
+
+.score-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    z-index: 10; /* Ensure it stays in front of animations */
+}
+
+.score-number {
+    font-size: 5rem;
+    color: #333;
+    font-weight: 200;
+}
+
+.job {
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: rgba(159, 195, 123, 1);
+    margin-top: 10px;
+}
+
+.progress-bar-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-top: 0px;
+}
+
+.progress-bar-container {
+    width: 90%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #f2745f;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.score-display {
+    font-family: 'Glacial Indifference', sans-serif;
+    display: flex;
+    flex-direction: column; /* Ensure the score and message are stacked vertically */
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 0px; /* Adds space between score number and the message */
+}
+
+.score-number {
+    font-size: 7rem; /* Large font for large screens */
+    color: #333;
+    font-weight: 200;
+}
+
+.job {
+    font-weight: 100;
+    font-size: 1.5rem; /* Smaller font size for the message */
+    color:  rgba(159, 195, 123, 1);
+    margin-top: 10px; /* Add spacing above the message */
+}
+
+.question-number {
+    font-size: 1.2rem;
+    font-weight: 200;
+    margin-bottom: 10px;
+    color: #28a745;
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    font-weight: 100;
+}
+
+.answers-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 70%;
+}
+
+button {
+    background-color: rgba(159, 195, 123, 1);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(138, 170, 107, 1);
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1024px) {
+    .score-box, .white-box {
+        width: 600px;
+        height: 300px;
+    }
+
+    .score-number {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .score-box, .white-box {
+        width: 500px;
+        height: 250px;
+    }
+
+    .score-number {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .score-box, .white-box {
+        width: 95%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .score-number {
+        font-size: 2.5rem;
+    }
+}
+
+/* Consolidated.css */
+
+body, html {
+    height: 100%;
+    margin: 0;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.score-box, .ai-box {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.ai-box {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-height: 400px; /* Optional: Limit height for better UX */
+    overflow-y: auto; /* Enable scrolling within the AI box */
+}
