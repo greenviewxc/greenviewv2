@@ -324,7 +324,7 @@ const Profile: React.FC = () => {
               margin={{
                 top: 5,
                 right: 0,
-                left: 40,
+                left: window.innerWidth <= 768 ? 0 : 40,
                 bottom: 0,
               }}
             >

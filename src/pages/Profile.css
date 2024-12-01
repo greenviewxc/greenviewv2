@@ -325,9 +325,12 @@
     height: auto;
   }
 
+  .profile-info, .statement, .badges, .history, .area {
+    padding-left: 20px;
+  }
+
   .area {
     flex-direction: column;
-    padding-left: 60px;
   }
 
   .popup {
